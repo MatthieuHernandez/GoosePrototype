@@ -1,0 +1,8 @@
+BasedOnStyle: Google
+IndentWidth: 4
+ColumnLimit: 120
+BreakBeforeBraces: Allman
+BreakConstructorInitializers: BeforeColon
+PackConstructorInitializers: Never
+AccessModifierOffset: -2
+IndentAccessModifiers: false
