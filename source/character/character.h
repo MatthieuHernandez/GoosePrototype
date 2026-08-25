@@ -17,8 +17,20 @@ class Charactere
     std::string displayStats() const;
     std::string displayCombatStats(const Charactere& opponent) const;
 
+    const std::string& getName() const;
+    Action getCurrentAction() const;
+    int getAttack() const;
+    float getCurrentPreparation() const;
+    float getBlockage() const;
+    int getCounterattack() const;
+    bool isAlive() const;
+
+    void receiveDamage(int damage);
+    void resetPreparation();
+    void increasePreparation();
+
   protected:
-    Action currentMove;
+    Action currentAction;
 
   private:
     std::string name;

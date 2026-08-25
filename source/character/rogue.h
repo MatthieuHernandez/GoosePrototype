@@ -1,8 +1,8 @@
 #pragma once
 
-#include "playable_character.h"
+#include "hero.h"
 
-class Rogue : public PlayableCharacter
+class Rogue : public Hero
 {
   public:
     Rogue();

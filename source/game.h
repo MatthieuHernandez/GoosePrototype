@@ -3,8 +3,13 @@
 #include <string>
 #include <vector>
 
-#include "character/character.h"
+#include "character/ennemi.h"
+#include "character/hero.h"
 
-const Charactere& SelectCharacter(const std::vector<Charactere>& characters, const std::string& characterType);
+void displayIntro();
 
-void Fight(const Charactere& hero, const Charactere& enemy);
+Hero& SelectCharacter(std::vector<Hero>& characters, const std::string& characterType);
+Ennemi& SelectCharacter(std::vector<Ennemi>& characters, const std::string& characterType);
+
+void Fight(Hero& hero, Ennemi& enemy);
+void displayResult(const Hero& hero, const Ennemi& enemy);
