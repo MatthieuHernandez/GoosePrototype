@@ -1,3 +1,4 @@
+#include <memory>
 #include <vector>
 
 #ifdef _WIN32
@@ -24,7 +25,10 @@ int main()
         displayIntro();
 
         std::vector<Hero> heroes{Warrior{}, Rogue{}, Mage{}};
-        std::vector<Ennemi> enemies{Goblin{}, Werewolf{}, Merfolk{}};
+        std::vector<std::unique_ptr<Ennemi>> enemies;
+        enemies.emplace_back(new Goblin{});
+        enemies.emplace_back(new Werewolf{});
+        enemies.emplace_back(new Merfolk{});
 
         auto& hero = SelectCharacter(heroes, "Héros");
         auto& enemy = SelectCharacter(enemies, "Ennemi");

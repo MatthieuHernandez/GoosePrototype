@@ -7,5 +7,9 @@ class Ennemi : public Charactere
   public:
     using Charactere::Charactere;
 
-    Action selectMove();
+    virtual Action selectAction() = 0;
+    virtual void recordActionResult(bool succeeded);
+
+  protected:
+    Action selectRandomAction();
 };

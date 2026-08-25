@@ -75,9 +75,42 @@ Hero& SelectCharacter(std::vector<Hero>& characters, const std::string& characte
     return SelectCharacterFrom(characters, characterType);
 }
 
-Ennemi& SelectCharacter(std::vector<Ennemi>& characters, const std::string& characterType)
+Ennemi& SelectCharacter(std::vector<std::unique_ptr<Ennemi>>& characters, const std::string& characterType)
 {
-    return SelectCharacterFrom(characters, characterType);
+    std::cout << "\033[2J\033[H";
+
+    if (characters.empty())
+    {
+        throw std::invalid_argument("La liste de personnages est vide.");
+    }
+
+    std::cout << "===== Sélection : " << characterType << " =====\n\n";
+
+    for (std::size_t index = 0; index < characters.size(); ++index)
+    {
+        std::cout << '[' << index + 1 << "]\n" << characters[index]->displayStats() << "\n\n";
+    }
+
+    while (true)
+    {
+        std::cout << "Choisissez un " << characterType << " (1-" << characters.size() << ") : ";
+
+        std::size_t choice;
+        if (std::cin >> choice && choice >= 1 && choice <= characters.size())
+        {
+            std::cout << '\n';
+            return *characters[choice - 1];
+        }
+
+        if (std::cin.eof())
+        {
+            throw std::runtime_error("Lecture interrompue.");
+        }
+
+        std::cout << "Choix invalide. Réessayez.\n";
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
 }
 
 void Fight(Hero& hero, Ennemi& enemy)
@@ -113,8 +146,8 @@ void Fight(Hero& hero, Ennemi& enemy)
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
 
-        hero.selectMove(static_cast<Action>(choice - 1));
-        enemy.selectMove();
+        hero.selectAction(static_cast<Action>(choice - 1));
+        enemy.selectAction();
 
         std::ostringstream recapStream;
         recapStream << hero.displayAction(enemy) << '\n';

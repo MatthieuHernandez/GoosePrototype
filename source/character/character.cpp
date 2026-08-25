@@ -75,21 +75,33 @@ void Charactere::increasePreparation() { currentPreparation *= preparation; }
 
 std::string Charactere::displayStats() const
 {
-    constexpr std::size_t lineWidth = 29;
+    const std::size_t valueWidth = std::max<std::size_t>(16, displayLength(description) + 1);
+    const std::size_t lineWidth = 20 + valueWidth;
 
     std::ostringstream stats;
     const std::string blockagePercentage = std::to_string(static_cast<int>(blockage * 100)) + "%";
+    std::ostringstream preparationValue;
+    preparationValue << 'x' << preparation;
     const std::size_t padding = lineWidth - displayLength(name) - 2;
     const std::size_t leftPadding = padding / 2;
     const std::size_t rightPadding = padding - leftPadding;
 
+    const auto makeStatLine = [valueWidth](const std::string& label, const std::string& value)
+    {
+        std::ostringstream line;
+        line << "| " << label << std::string(15 - displayLength(label), ' ') << "| " << value
+             << std::string(displayLength(value) < valueWidth ? valueWidth - displayLength(value) : 0, ' ') << '|';
+        return line.str();
+    };
+
     stats << std::setfill('-') << std::setw(leftPadding) << "" << ' ' << name << ' ' << std::setw(rightPadding) << ""
           << std::setfill(' ') << '\n'
-          << "| " << std::left << std::setw(15) << "Vie" << "| " << std::setw(9) << life << "|\n"
-          << "| " << std::setw(15) << "Blocage" << "| " << std::setw(9) << blockagePercentage << "|\n"
-          << "| " << std::setw(15) << "Attaque" << "| " << std::setw(9) << attack << "|\n"
-          << "| " << std::setw(15) << "Contre-attaque" << "| " << std::setw(9) << counterattack << "|\n"
-          << "| " << std::setw(16) << "Préparation" << "| x" << std::setw(8) << preparation << "|";
+          << makeStatLine("Vie", std::to_string(life)) << '\n'
+          << makeStatLine("Blocage", blockagePercentage) << '\n'
+          << makeStatLine("Attaque", std::to_string(attack)) << '\n'
+          << makeStatLine("Contre-attaque", std::to_string(counterattack)) << '\n'
+          << makeStatLine("Préparation", preparationValue.str()) << '\n'
+          << makeStatLine("Description", description);
 
     return stats.str();
 }

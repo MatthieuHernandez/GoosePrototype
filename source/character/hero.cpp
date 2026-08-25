@@ -4,7 +4,7 @@
 
 #include "ennemi.h"
 
-void Hero::selectMove(Action action) { this->currentAction = action; }
+void Hero::selectAction(Action action) { this->currentAction = action; }
 
 std::string Hero::displayAction(const Ennemi& enemy) const
 {
@@ -28,6 +28,12 @@ std::string Hero::displayAction(const Ennemi& enemy) const
 
 void Hero::resolveAction(Ennemi& enemy)
 {
+    const bool enemyActionSucceeded =
+        (enemy.getCurrentAction() == Action::attack && getCurrentAction() == Action::prepare) ||
+        (enemy.getCurrentAction() == Action::block && getCurrentAction() == Action::attack) ||
+        (enemy.getCurrentAction() == Action::prepare && getCurrentAction() != Action::attack);
+    enemy.recordActionResult(enemyActionSucceeded);
+
     const auto resolveAttack = [&](Charactere& attacker, Charactere& defender)
     {
         const int attackDamage = static_cast<int>(std::ceil(attacker.getAttack() * attacker.getCurrentPreparation()));
@@ -45,6 +51,19 @@ void Hero::resolveAction(Ennemi& enemy)
             attacker.resetPreparation(false);
         }
     };
+
+    // La préparation est toujours résolue avant les autres actions du tour.
+    // Si le personnage est ensuite touché, receiveDamage() lui fera perdre
+    // cette préparation et affichera le message correspondant.
+    if (getCurrentAction() == Action::prepare)
+    {
+        increasePreparation();
+    }
+
+    if (enemy.getCurrentAction() == Action::prepare)
+    {
+        enemy.increasePreparation();
+    }
 
     if (getCurrentAction() == Action::attack && enemy.getCurrentAction() == Action::attack)
     {
@@ -67,15 +86,5 @@ void Hero::resolveAction(Ennemi& enemy)
     {
         resolveAttack(enemy, *this);
         return;
-    }
-
-    if (getCurrentAction() == Action::prepare)
-    {
-        increasePreparation();
-    }
-
-    if (enemy.getCurrentAction() == Action::prepare)
-    {
-        enemy.increasePreparation();
     }
 }

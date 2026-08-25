@@ -6,4 +6,5 @@ class Goblin : public Ennemi
 {
   public:
     Goblin();
+    Action selectAction() override;
 };
