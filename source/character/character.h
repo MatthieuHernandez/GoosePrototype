@@ -26,7 +26,7 @@ class Charactere
     bool isAlive() const;
 
     void receiveDamage(int damage);
-    void resetPreparation();
+    void resetPreparation(bool isLost);
     void increasePreparation();
 
   protected:

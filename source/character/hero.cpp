@@ -30,29 +30,28 @@ void Hero::resolveAction(Ennemi& enemy)
 {
     const auto resolveAttack = [&](Charactere& attacker, Charactere& defender)
     {
-        const int attackDamage =
-            static_cast<int>(std::ceil(attacker.getAttack() * attacker.getCurrentPreparation()));
+        const int attackDamage = static_cast<int>(std::ceil(attacker.getAttack() * attacker.getCurrentPreparation()));
 
         if (defender.getCurrentAction() == Action::block)
         {
-            const int reducedDamage =
-                static_cast<int>(std::ceil(attackDamage * (1.0f - defender.getBlockage())));
+            const int reducedDamage = static_cast<int>(std::ceil(attackDamage * (1.0f - defender.getBlockage())));
             defender.receiveDamage(reducedDamage);
-            attacker.resetPreparation();
+            attacker.resetPreparation(false);
             attacker.receiveDamage(defender.getCounterattack());
         }
         else
         {
             defender.receiveDamage(attackDamage);
-            attacker.resetPreparation();
+            attacker.resetPreparation(false);
         }
     };
 
     if (getCurrentAction() == Action::attack && enemy.getCurrentAction() == Action::attack)
     {
-        const int heroDamage =
-            static_cast<int>(std::ceil(enemy.getAttack() * enemy.getCurrentPreparation()));
+        const int heroDamage = static_cast<int>(std::ceil(enemy.getAttack() * enemy.getCurrentPreparation()));
         const int enemyDamage = static_cast<int>(std::ceil(getAttack() * getCurrentPreparation()));
+        resetPreparation(false);
+        enemy.resetPreparation(false);
         receiveDamage(heroDamage);
         enemy.receiveDamage(enemyDamage);
         return;

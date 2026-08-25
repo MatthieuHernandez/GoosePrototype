@@ -20,7 +20,7 @@ std::size_t displayLength(const std::string& text)
     }
     return length;
 }
-}
+}  // namespace
 
 Charactere::Charactere(std::string name, int life, float blockage, int attack, int counterattack, float preparation,
                        std::string description)
@@ -58,16 +58,17 @@ void Charactere::receiveDamage(int damage)
     const int damageTaken = previousLife - currentLife;
 
     std::cout << name << " subit " << damageTaken << " points de dégâts.\n";
-    resetPreparation();
+    resetPreparation(true);
 }
 
-void Charactere::resetPreparation()
+void Charactere::resetPreparation(bool isLost)
 {
-    if (currentPreparation != 1.0f)
+    if (isLost && currentPreparation != 1.0f)
     {
         std::cout << name << " perd sa préparation.\n";
-        currentPreparation = 1.0f;
     }
+
+    currentPreparation = 1.0f;
 }
 
 void Charactere::increasePreparation() { currentPreparation *= preparation; }
@@ -122,8 +123,8 @@ std::string Charactere::displayCombatStats(const Charactere& opponent) const
         const auto makeStatLine = [](const std::string& label, const std::string& value)
         {
             std::ostringstream line;
-            line << "| " << label << std::string(15 - displayLength(label), ' ') << "| " << std::left
-                 << std::setw(12) << value << '|';
+            line << "| " << label << std::string(15 - displayLength(label), ' ') << "| " << std::left << std::setw(12)
+                 << value << '|';
             return line.str();
         };
 
