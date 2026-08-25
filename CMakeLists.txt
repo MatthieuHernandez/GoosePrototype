@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(CMAKE_CXX_COMPILER clang++ CACHE STRING "C++ compiler" FORCE)
-
 project(GoosePrototype LANGUAGES CXX)
 
 add_executable(GoosePrototype
@@ -17,3 +15,15 @@ add_executable(GoosePrototype
     source/character/warrior.cpp
     source/character/werewolf.cpp
 )
+
+target_compile_features(GoosePrototype PRIVATE cxx_std_17)
+
+set_target_properties(GoosePrototype PROPERTIES CXX_EXTENSIONS OFF)
+
+if(WIN32)
+    set_property(
+        TARGET GoosePrototype
+        PROPERTY MSVC_RUNTIME_LIBRARY
+        "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+        "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+endif()
