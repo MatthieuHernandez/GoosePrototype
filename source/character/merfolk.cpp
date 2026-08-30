@@ -3,7 +3,7 @@
 #include <random>
 
 Merfolk::Merfolk()
-    : Ennemi("Sirène", 110, 0.9f, 5, 13, 5.0f, "Patiente et calculatrice")
+    : Ennemi("Sirène", 110, 0.9f, 5, 14, 5.0f, "Patiente et calculatrice")
 {
 }
 
@@ -25,11 +25,11 @@ Action Merfolk::selectAction()
     }
     else if (hasPreviousAction && previousActionSucceeded && currentAction == Action::block)
     {
-        if (roll <= 15)
+        if (roll <= 10)
         {
             currentAction = Action::attack;
         }
-        else if (roll <= 35)
+        else if (roll <= 30)
         {
             currentAction = Action::prepare;
         }

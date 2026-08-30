@@ -25,5 +25,4 @@ if(WIN32)
         TARGET GoosePrototype
         PROPERTY MSVC_RUNTIME_LIBRARY
         "MultiThreaded$<$<CONFIG:Debug>:Debug>")
-        "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 endif()

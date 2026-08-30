@@ -164,8 +164,6 @@ void Fight(Hero& hero, Ennemi& enemy)
 
 void displayResult(const Hero& hero, const Ennemi& enemy)
 {
-    std::cout << "\033[2J\033[H";
-
     if (!hero.isAlive() && !enemy.isAlive())
     {
         std::cout << "Égalité !\n";
