@@ -3,7 +3,7 @@
 #include <random>
 
 Werewolf::Werewolf()
-    : Ennemi("Loup-Garou", 200, 0.7f, 8, 8, 2.5f, "Rusé et méthodique")
+    : Ennemi("Loup-garou", 200, 0.7f, 8, 8, 2.5f, "Rusé et méthodique")
 {
 }
 

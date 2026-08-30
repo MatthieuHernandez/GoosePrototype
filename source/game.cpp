@@ -15,13 +15,13 @@ void displayIntro()
               << "=====================================\n"
               << "========== Goose Prototype ==========\n"
               << "=====================================\n\n"
-              << "Ce prototype a été développé pour tester un nouveau système de combat pour un future jeu.\n"
-              << "Le combat fonctionne un peu comme un jeu de pierre-feuille-ciseaux:\n\n"
+              << "Ce prototype a été développé pour tester un nouveau système de combat pour un futur jeu.\n"
+              << "Le combat fonctionne un peu comme un jeu de pierre-feuille-ciseaux :\n\n"
               << "- Attaquer inflige des dégâts et annule la préparation.\n"
               << "- Bloquer réduit les dégâts d'une attaque et permet de contre-attaquer.\n"
               << "- Préparer augmente la puissance de la prochaine attaque (cumulable).\n"
-              << "- 3 classes sont disponible: Guerrier, Voleur et Mage.\n"
-              << "- 3 ennemis au comportement unique sont affrontable.\n\n\n"
+              << "- 3 classes sont disponibles : Guerrier, Voleur et Mage.\n"
+              << "- 3 ennemis au comportement unique sont affrontables.\n\n\n"
               << "Appuyez sur n'importe quelle touche pour continuer." << std::flush;
 
 #ifdef _WIN32
