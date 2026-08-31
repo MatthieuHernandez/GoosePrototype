@@ -2,9 +2,9 @@
 
 #include "ennemi.h"
 
-class Werewolf : public Ennemi
+class Troll : public Ennemi
 {
   public:
-    Werewolf();
+    Troll();
     Action selectAction() override;
 };

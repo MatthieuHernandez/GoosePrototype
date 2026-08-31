@@ -12,6 +12,7 @@ add_executable(GoosePrototype
     source/character/merfolk.cpp
     source/character/hero.cpp
     source/character/rogue.cpp
+    source/character/troll.cpp
     source/character/warrior.cpp
     source/character/werewolf.cpp
 )

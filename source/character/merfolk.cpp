@@ -1,7 +1,5 @@
 #include "merfolk.h"
 
-#include <random>
-
 Merfolk::Merfolk()
     : Ennemi("Sirène", 110, 0.9f, 5, 14, 5.0f, "Patiente et calculatrice")
 {
@@ -15,9 +13,7 @@ Action Merfolk::selectAction()
         return currentAction;
     }
 
-    static std::mt19937 randomGenerator(std::random_device{}());
-    static std::uniform_int_distribution<int> percentage(1, 100);
-    const int roll = percentage(randomGenerator);
+    const int roll = rollPercentage();
 
     if (hasPreviousAction && previousActionSucceeded && currentAction == Action::prepare)
     {
@@ -52,10 +48,4 @@ Action Merfolk::selectAction()
     }
 
     return currentAction;
-}
-
-void Merfolk::recordActionResult(bool succeeded)
-{
-    hasPreviousAction = true;
-    previousActionSucceeded = succeeded;
 }

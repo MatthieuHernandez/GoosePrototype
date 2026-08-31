@@ -3,7 +3,7 @@
 #include <random>
 
 Werewolf::Werewolf()
-    : Ennemi("Loup-garou", 200, 0.7f, 8, 8, 2.5f, "Rusé et méthodique")
+    : Ennemi("Loup-garou", 130, 0.7f, 10, 10, 2.5f, "Rusé et méthodique")
 {
 }
 
@@ -28,10 +28,4 @@ Action Werewolf::selectAction()
     }
 
     return currentAction;
-}
-
-void Werewolf::recordActionResult(bool succeeded)
-{
-    hasPreviousAction = true;
-    previousActionSucceeded = succeeded;
 }

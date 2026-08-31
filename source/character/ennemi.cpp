@@ -11,4 +11,15 @@ Action Ennemi::selectRandomAction()
     return currentAction;
 }
 
-void Ennemi::recordActionResult(bool succeeded) { (void)succeeded; }
+int Ennemi::rollPercentage()
+{
+    static std::mt19937 randomGenerator(std::random_device{}());
+    static std::uniform_int_distribution<int> percentage(1, 100);
+    return percentage(randomGenerator);
+}
+
+void Ennemi::recordActionResult(bool succeeded)
+{
+    hasPreviousAction = true;
+    previousActionSucceeded = succeeded;
+}

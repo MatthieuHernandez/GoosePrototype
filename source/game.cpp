@@ -21,7 +21,7 @@ void displayIntro()
               << "- Bloquer réduit les dégâts d'une attaque et permet de contre-attaquer.\n"
               << "- Préparer augmente la puissance de la prochaine attaque (cumulable).\n"
               << "- 3 classes sont disponibles : Guerrier, Voleur et Mage.\n"
-              << "- 3 ennemis au comportement unique sont affrontables.\n\n\n"
+              << "- 4 ennemis au comportement unique sont affrontables.\n\n\n"
               << "Appuyez sur n'importe quelle touche pour continuer." << std::flush;
 
 #ifdef _WIN32

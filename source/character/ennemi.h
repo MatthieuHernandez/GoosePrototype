@@ -12,4 +12,8 @@ class Ennemi : public Charactere
 
   protected:
     Action selectRandomAction();
+    int rollPercentage();
+
+    bool hasPreviousAction = false;
+    bool previousActionSucceeded = false;
 };

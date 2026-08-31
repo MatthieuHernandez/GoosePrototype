@@ -9,6 +9,7 @@
 #include "character/mage.h"
 #include "character/merfolk.h"
 #include "character/rogue.h"
+#include "character/troll.h"
 #include "character/warrior.h"
 #include "character/werewolf.h"
 #include "game.h"
@@ -29,6 +30,7 @@ int main()
         enemies.emplace_back(new Goblin{});
         enemies.emplace_back(new Werewolf{});
         enemies.emplace_back(new Merfolk{});
+        enemies.emplace_back(new Troll{});
 
         auto& hero = SelectCharacter(heroes, "Héros");
         auto& enemy = SelectCharacter(enemies, "Ennemi");
