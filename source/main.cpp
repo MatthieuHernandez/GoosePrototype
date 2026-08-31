@@ -25,12 +25,15 @@ int main()
     {
         displayIntro();
 
-        std::vector<Hero> heroes{Warrior{}, Rogue{}, Mage{}};
+        std::vector<std::unique_ptr<Hero>> heroes;
+        heroes.emplace_back(std::make_unique<Warrior>());
+        heroes.emplace_back(std::make_unique<Rogue>());
+        heroes.emplace_back(std::make_unique<Mage>());
         std::vector<std::unique_ptr<Ennemi>> enemies;
-        enemies.emplace_back(new Goblin{});
-        enemies.emplace_back(new Werewolf{});
-        enemies.emplace_back(new Merfolk{});
-        enemies.emplace_back(new Troll{});
+        enemies.emplace_back(std::make_unique<Goblin>());
+        enemies.emplace_back(std::make_unique<Werewolf>());
+        enemies.emplace_back(std::make_unique<Merfolk>());
+        enemies.emplace_back(std::make_unique<Troll>());
 
         auto& hero = SelectCharacter(heroes, "Héros");
         auto& enemy = SelectCharacter(enemies, "Ennemi");

@@ -32,50 +32,8 @@ void displayIntro()
 }
 
 template <typename CharacterType>
-CharacterType& SelectCharacterFrom(std::vector<CharacterType>& characters, const std::string& characterType)
-{
-    std::cout << "\033[2J\033[H";
-
-    if (characters.empty())
-    {
-        throw std::invalid_argument("La liste de personnages est vide.");
-    }
-
-    std::cout << "===== Sélection : " << characterType << " =====\n\n";
-
-    for (std::size_t index = 0; index < characters.size(); ++index)
-    {
-        std::cout << '[' << index + 1 << "]\n" << characters[index].displayStats() << "\n\n";
-    }
-
-    while (true)
-    {
-        std::cout << "Choisissez un " << characterType << " (1-" << characters.size() << ") : ";
-
-        std::size_t choice;
-        if (std::cin >> choice && choice >= 1 && choice <= characters.size())
-        {
-            std::cout << '\n';
-            return characters[choice - 1];
-        }
-
-        if (std::cin.eof())
-        {
-            throw std::runtime_error("Lecture interrompue.");
-        }
-
-        std::cout << "Choix invalide. Réessayez.\n";
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    }
-}
-
-Hero& SelectCharacter(std::vector<Hero>& characters, const std::string& characterType)
-{
-    return SelectCharacterFrom(characters, characterType);
-}
-
-Ennemi& SelectCharacter(std::vector<std::unique_ptr<Ennemi>>& characters, const std::string& characterType)
+CharacterType& SelectCharacterFrom(std::vector<std::unique_ptr<CharacterType>>& characters,
+                                   const std::string& characterType)
 {
     std::cout << "\033[2J\033[H";
 
@@ -111,6 +69,16 @@ Ennemi& SelectCharacter(std::vector<std::unique_ptr<Ennemi>>& characters, const 
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
+}
+
+Hero& SelectCharacter(std::vector<std::unique_ptr<Hero>>& characters, const std::string& characterType)
+{
+    return SelectCharacterFrom(characters, characterType);
+}
+
+Ennemi& SelectCharacter(std::vector<std::unique_ptr<Ennemi>>& characters, const std::string& characterType)
+{
+    return SelectCharacterFrom(characters, characterType);
 }
 
 void Fight(Hero& hero, Ennemi& enemy)
